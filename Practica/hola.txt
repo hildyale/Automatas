@@ -1,0 +1,1 @@
+{"estados":{"aa":{"0":"aa","1":"bb"},"bb":{"0":"bb","1":"aa"}},"simbolos":["0","1"],"estadoInicial":"aa","estadosAceptacion":["bb"]}
