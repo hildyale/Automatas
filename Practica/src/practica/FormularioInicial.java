@@ -33,12 +33,13 @@ public class FormularioInicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         crear = new javax.swing.JButton();
         cargar = new javax.swing.JButton();
+        crear1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Que desea hacer? ");
 
-        crear.setText("Crear nuevo automata");
+        crear.setText("Crear automata Determinista");
         crear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 crearActionPerformed(evt);
@@ -52,6 +53,13 @@ public class FormularioInicial extends javax.swing.JFrame {
             }
         });
 
+        crear1.setText("Crear automata No Determinista");
+        crear1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crear1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -59,12 +67,13 @@ public class FormularioInicial extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(crear1)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(crear)
                         .addGap(18, 18, 18)
                         .addComponent(cargar)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,7 +84,9 @@ public class FormularioInicial extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(crear)
                     .addComponent(cargar))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(crear1)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,10 +125,18 @@ public class FormularioInicial extends javax.swing.JFrame {
                                 if(!b.isEmpty()){
                                     Gson gson = new Gson();
                                     Automata automata = gson.fromJson(b, Automata.class);
-                                    FormularioCrearAutomata abc = new FormularioCrearAutomata();
-                                    abc.setTitle("Crear Automata");
-                                    abc.transformarAutomata(automata);
-                                    abc.setVisible(true);
+                                    if(automata.getEstadoInicial()!=null){
+                                        FormularioCrearAutomata abc = new FormularioCrearAutomata();
+                                        abc.setTitle("Crear Automata Determinista");
+                                        abc.transformarAutomata(automata);
+                                        abc.setVisible(true);
+                                    }else{
+                                        AutomataND automataND = gson.fromJson(b, AutomataND.class);
+                                        FormularioCrearAutomataND abc = new FormularioCrearAutomataND();
+                                        abc.setTitle("Crear Automata No Determinista");
+                                        abc.transformarAutomata(automataND);
+                                        abc.setVisible(true);
+                                    }
                                     dispose();
                                 }else{
                                     JOptionPane.showMessageDialog(null, "Texto Vacío","Error",JOptionPane.ERROR_MESSAGE);
@@ -136,10 +155,17 @@ public class FormularioInicial extends javax.swing.JFrame {
      */
     private void crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearActionPerformed
         FormularioCrearAutomata formulario =  new FormularioCrearAutomata();
-        formulario.setTitle("Crear Automata");
+        formulario.setTitle("Crear Automata Determinista");
         formulario.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_crearActionPerformed
+
+    private void crear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crear1ActionPerformed
+        FormularioCrearAutomataND formulario =  new FormularioCrearAutomataND();
+        formulario.setTitle("Crear Automata No Determinista");
+        formulario.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_crear1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,6 +206,7 @@ public class FormularioInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cargar;
     private javax.swing.JButton crear;
+    private javax.swing.JButton crear1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

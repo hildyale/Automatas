@@ -1,0 +1,1 @@
+{"estados":{"ko":{"0":"jo","1":"ko"},"jo":{"0":"ko","1":"jo"}},"simbolos":["1","0"],"estadosIniciales":["jo"],"estadosAceptacion":["ko"]}
